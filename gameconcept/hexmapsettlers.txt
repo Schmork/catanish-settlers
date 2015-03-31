@@ -1,0 +1,15 @@
+
+  HSH     HSH     HSH
+ S   S   S   S   S   S  
+H  F  HSH  F  HSH  F  H
+ S   S   S   S   S   S
+  HSH  F  HSH  F  HSH
+ S   S   S   S   S   S  
+H  F  HSH  F  HSH  F  H
+ S   S   S   S   S   S
+  HSH  F  HSH  F  HSH
+ S   S   S   S   S   S  
+H  F  HSH  F  HSH  F  H
+ S   S   S   S   S   S
+  HSH     HSH     HSH
+ 
