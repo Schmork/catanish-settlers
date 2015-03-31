@@ -3,7 +3,7 @@ package de.htwg.se.catanishsettlers.modules.map;
 /**
  * Created by JonnyTieM on 29.03.2015.
  */
-public class MapObject {
+public abstract class MapObject {
     private final int x;
     private final int y;
 
