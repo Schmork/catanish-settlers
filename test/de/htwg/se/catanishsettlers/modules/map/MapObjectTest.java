@@ -21,17 +21,7 @@ public class MapObjectTest {
     }
 
     @Test
-    public void testSetX() throws Exception {
-
-    }
-
-    @Test
     public void testGetY() throws Exception {
-
-    }
-
-    @Test
-    public void testSetY() throws Exception {
 
     }
 }
