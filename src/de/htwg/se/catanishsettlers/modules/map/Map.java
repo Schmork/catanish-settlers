@@ -2,6 +2,8 @@ package de.htwg.se.catanishsettlers.modules.map;
 
 /**
  * Map manages the fields, edges and vertices of the board. It knows to which field each vetix or edge belongs.
+ * x coordinates start on the left with zero and go up towards the right.
+ * y coordinates start on the top with zero and to up towards the bottom.
  * <p>
  * Some inspiration for this class is taken from following links:
  * http://www.redblobgames.com/grids/hexagons/
@@ -22,11 +24,19 @@ public final class Map implements IMap {
      */
     private void initStandardMap() {
         fields = new Field[5][5];
-        edges = new Edge[6][17];
+        edges = new Edge[6][16];
         vertices = new Vertex[6][12];
 
     }
 
+    /**
+     * creates a Field at given Position.
+     * Then it checks whether all the edges and vertices for this field already exist.
+     * If not it will create the needed edges and vertices.
+     *
+     * @param x x-Position
+     * @param y y-Position
+     */
     private void createField(int x, int y) {
 
     }
@@ -40,7 +50,7 @@ public final class Map implements IMap {
         Edge[] edges = new Edge[6];
 
         if (x % 2 == 0) {
-
+            edges[1] = this.edges[x][3 + y]; //top
         } else {
 
         }

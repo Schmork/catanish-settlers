@@ -3,10 +3,10 @@ package de.htwg.se.catanishsettlers.modules.map;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Jonathan on 29.03.2015.
+ * Created by JonnyTieM on 29.03.2015.
  */
 public class MapObjectTest {
     MapObject mapObj;
