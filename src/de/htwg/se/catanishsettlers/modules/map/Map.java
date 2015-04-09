@@ -24,7 +24,7 @@ public final class Map implements IMap {
      */
     private void initStandardMap() {
         fields = new Field[5][5];
-        edges = new Edge[6][16];
+        edges = new Edge[6][18];
         vertices = new Vertex[6][12];
 
     }
