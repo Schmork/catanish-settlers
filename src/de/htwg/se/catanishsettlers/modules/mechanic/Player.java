@@ -103,34 +103,34 @@ public class Player implements IGenerateMessages {
     public boolean makeInvestment(Class<?> desiredClass, MapObject desiredPlace) {     //TODO: extend parameters by vertex / edge for building / road
         if (!Investment.class.isAssignableFrom(desiredClass)) throw new IllegalArgumentException(); // is investment?
 
-        Investment investment;
-
         ResourceCollection cost = null;
         if (desiredClass == Road.class) {
-            investment = new Road(this, (Edge)desiredPlace);
             cost = Road.getCost();
         } else if (desiredClass == Settlement.class) {
-            investment = new Settlement(this, (Vertex)desiredPlace);
             cost = Settlement.getCost();
         } else if (desiredClass == City.class) {
-            investment = new City(this, (Vertex)desiredPlace);
             cost = City.getCost();
         } else if (desiredClass == Card.class) {
-            investment = game.getTopCard();
             cost = Card.getCost();
         }
 
         if (resources.compareTo(cost) < 0) return false;    // player doesn't have enough resources
-
-        //TODO: actually place the building / street
-
         resources.subtract(cost);     // pay the price
+
+        Investment investment = null;
+        if (desiredClass == Road.class) {
+            investment = new Road(this, (Edge)desiredPlace);
+        } else if (desiredClass == Settlement.class) {
+            investment = new Settlement(this, (Vertex)desiredPlace);
+        } else if (desiredClass == City.class) {
+            investment = new City(this, (Vertex)desiredPlace);
+        } else if (desiredClass == Card.class) {
+            investment = game.getTopCard();
+            cards.add((Card)investment);
+        }
 
         if (investment instanceof Building) {
             buildings.add((Building) investment);
-        }
-        if (investment instanceof Card) {
-            cards.add((Card)investment);
         }
         return true;    // player had enough resources
     }
