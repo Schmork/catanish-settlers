@@ -1,4 +1,4 @@
-package de.htwg.se.catanishsettlers.model.view;
+package de.htwg.se.catanishsettlers.view;
 
 import java.util.*;
 

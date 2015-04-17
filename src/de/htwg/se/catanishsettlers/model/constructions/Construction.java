@@ -3,8 +3,8 @@ package de.htwg.se.catanishsettlers.model.constructions;
 import de.htwg.se.catanishsettlers.model.map.MapObject;
 import de.htwg.se.catanishsettlers.model.mechanic.Investment;
 import de.htwg.se.catanishsettlers.model.mechanic.Player;
-import de.htwg.se.catanishsettlers.model.view.IGenerateMessages;
-import de.htwg.se.catanishsettlers.model.view.Message;
+import de.htwg.se.catanishsettlers.view.IGenerateMessages;
+import de.htwg.se.catanishsettlers.view.Message;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,6 @@
 package de.htwg.se.catanishsettlers.model.mechanic;
 
+import de.htwg.se.catanishsettlers.controller.Game;
 import org.junit.Before;
 import org.junit.Test;
 

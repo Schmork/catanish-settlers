@@ -1,4 +1,4 @@
-package de.htwg.se.catanishsettlers.model.view;
+package de.htwg.se.catanishsettlers.view;
 
 import de.htwg.se.catanishsettlers.model.constructions.City;
 import de.htwg.se.catanishsettlers.model.constructions.Road;

@@ -1,5 +1,6 @@
 package de.htwg.se.catanishsettlers.model.mechanic;
 
+import de.htwg.se.catanishsettlers.controller.Game;
 import de.htwg.se.catanishsettlers.model.constructions.City;
 import de.htwg.se.catanishsettlers.model.constructions.Road;
 import de.htwg.se.catanishsettlers.model.constructions.Settlement;

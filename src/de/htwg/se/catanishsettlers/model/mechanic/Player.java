@@ -1,12 +1,13 @@
 package de.htwg.se.catanishsettlers.model.mechanic;
 
+import de.htwg.se.catanishsettlers.controller.Game;
 import de.htwg.se.catanishsettlers.model.constructions.*;
 import de.htwg.se.catanishsettlers.model.map.Edge;
 import de.htwg.se.catanishsettlers.model.map.Vertex;
 import de.htwg.se.catanishsettlers.model.resources.Resource;
 import de.htwg.se.catanishsettlers.model.resources.ResourceCollection;
-import de.htwg.se.catanishsettlers.model.view.IGenerateMessages;
-import de.htwg.se.catanishsettlers.model.view.Message;
+import de.htwg.se.catanishsettlers.view.IGenerateMessages;
+import de.htwg.se.catanishsettlers.view.Message;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

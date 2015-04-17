@@ -1,7 +1,7 @@
 package de.htwg.se.catanishsettlers.model.mechanic;
 
-import de.htwg.se.catanishsettlers.model.view.IGenerateMessages;
-import de.htwg.se.catanishsettlers.model.view.Message;
+import de.htwg.se.catanishsettlers.view.IGenerateMessages;
+import de.htwg.se.catanishsettlers.view.Message;
 
 import java.util.ArrayList;
 

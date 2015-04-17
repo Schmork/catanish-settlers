@@ -1,6 +1,9 @@
-package de.htwg.se.catanishsettlers.model.mechanic;
+package de.htwg.se.catanishsettlers.controller;
 
 import de.htwg.se.catanishsettlers.model.constructions.Building;
+import de.htwg.se.catanishsettlers.model.mechanic.Card;
+import de.htwg.se.catanishsettlers.model.mechanic.Field;
+import de.htwg.se.catanishsettlers.model.mechanic.Player;
 
 import java.util.*;
 

@@ -1,4 +1,8 @@
-package de.htwg.se.catanishsettlers.model.mechanic;
+package de.htwg.se.catanishsettlers.controller;
+
+import de.htwg.se.catanishsettlers.model.mechanic.DiceRoll;
+import de.htwg.se.catanishsettlers.model.mechanic.Player;
+import de.htwg.se.catanishsettlers.model.mechanic.Robber;
 
 /**
  * Singleton
