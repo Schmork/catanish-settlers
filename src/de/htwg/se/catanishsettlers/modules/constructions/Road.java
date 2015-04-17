@@ -15,5 +15,6 @@ public final class Road extends Construction {
     public Road(Player player, Edge edge) {
         super(player, edge);
         cost = new ResourceCollection(new Brick(2),new Lumber(1));
+        edge.buildRoad(this);
     }
 }

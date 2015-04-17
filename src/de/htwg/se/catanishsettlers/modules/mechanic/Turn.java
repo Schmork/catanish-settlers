@@ -1,5 +1,7 @@
 package de.htwg.se.catanishsettlers.modules.mechanic;
 
+import de.htwg.se.catanishsettlers.modules.map.*;
+
 /**
  * Singleton
  * Created by Stephan on 03.04.2015.
@@ -21,7 +23,8 @@ public class Turn {
         DiceRoll roll = new DiceRoll(2);
 
         if (roll.getValue() == 7) {
-            //TODO: reposition robber
+            de.htwg.se.catanishsettlers.modules.map.Field chosenField = null;   // TODO: Make player choose field
+            Robber.getInstance().moveToField(chosenField);
         } else {
             //distributeResources(dieRoll);
         }

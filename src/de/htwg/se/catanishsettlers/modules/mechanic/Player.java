@@ -104,24 +104,27 @@ public class Player implements IGenerateMessages {
         if (!Investment.class.isAssignableFrom(desiredClass)) throw new IllegalArgumentException(); // is investment?
 
         Investment investment;
+
+        ResourceCollection cost = null;
         if (desiredClass == Road.class) {
             investment = new Road(this, (Edge)desiredPlace);
+            cost = Road.getCost();
         } else if (desiredClass == Settlement.class) {
             investment = new Settlement(this, (Vertex)desiredPlace);
+            cost = Settlement.getCost();
         } else if (desiredClass == City.class) {
             investment = new City(this, (Vertex)desiredPlace);
+            cost = City.getCost();
         } else if (desiredClass == Card.class) {
             investment = game.getTopCard();
-        } else {
-            investment = new Road(null, null);     // to quiet the compiler who worries about investment initialization
-            throw new IllegalArgumentException();       // the desiredClass is no known investment
+            cost = Card.getCost();
         }
 
-        if (resources.compareTo(investment.getCost()) < 0) return false;    // player doesn't have enough resources
+        if (resources.compareTo(cost) < 0) return false;    // player doesn't have enough resources
 
         //TODO: actually place the building / street
 
-        resources.subtract(investment.getCost());     // pay the price
+        resources.subtract(cost);     // pay the price
 
         if (investment instanceof Building) {
             buildings.add((Building) investment);

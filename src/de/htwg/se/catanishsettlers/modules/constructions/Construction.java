@@ -1,7 +1,6 @@
 package de.htwg.se.catanishsettlers.modules.constructions;
 
 import de.htwg.se.catanishsettlers.modules.map.MapObject;
-import de.htwg.se.catanishsettlers.modules.map.Vertex;
 import de.htwg.se.catanishsettlers.modules.mechanic.Investment;
 import de.htwg.se.catanishsettlers.modules.mechanic.Player;
 import de.htwg.se.catanishsettlers.modules.view.IGenerateMessages;
@@ -14,18 +13,19 @@ import java.util.ArrayList;
  */
 public abstract class Construction extends Investment implements IGenerateMessages{
     protected Player owner;
-    private MapObject mapObject;
+    private MapObject position;
 
-    public Construction(Player player, MapObject mapObject) {
+    public Construction(Player player, MapObject position) {
         categories.add(Message.Category.CONSTRUCTION);
         owner = player;
+        this.position = position;
     }
 
     public Player getPlayer() {
         return owner;
     }
 
-    public MapObject getMapObject() {return mapObject;}
+    public MapObject getPosition() {return position;}
 
     public Message[] getMessages() {
         ArrayList<Message> messages = new ArrayList<Message>();

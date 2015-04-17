@@ -16,6 +16,7 @@ public abstract class Building extends Construction{
     public Building(Player player, Vertex vertex) {
         super(player, vertex);
         collectedResources = new ResourceCollection();
+        vertex.placeBuilding(this);
     }
 
     public int getScore() {

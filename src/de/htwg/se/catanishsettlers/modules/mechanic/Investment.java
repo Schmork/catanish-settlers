@@ -6,9 +6,9 @@ import de.htwg.se.catanishsettlers.modules.resources.ResourceCollection;
  * Created by Stephan on 02.04.2015.
  */
 public abstract class Investment {
-    protected ResourceCollection cost;
+    protected static ResourceCollection cost;
 
-    public ResourceCollection getCost() {
+    public static ResourceCollection getCost() {
         return cost;
     }
 }
