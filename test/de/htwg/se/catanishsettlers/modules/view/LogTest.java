@@ -1,0 +1,59 @@
+package de.htwg.se.catanishsettlers.modules.view;
+
+import de.htwg.se.catanishsettlers.modules.constructions.City;
+import de.htwg.se.catanishsettlers.modules.constructions.Road;
+import de.htwg.se.catanishsettlers.modules.constructions.Settlement;
+import de.htwg.se.catanishsettlers.modules.mechanic.DiceRoll;
+import de.htwg.se.catanishsettlers.modules.mechanic.Player;
+import org.junit.Test;
+
+public class LogTest {
+
+    @Test
+    public void test() throws Exception {
+        Log.categories.add(Message.Category.VICTORY);
+        Log.categories.add(Message.Category.CONSTRUCTION);
+        Log.detailLevel = Message.Detail.HIGH;
+        Settlement settlement = new Settlement(new Player("Hans"));
+        City city = new City(new Player("Peter"));
+        Road road = new Road(new Player("Susi"));
+
+        Player player = new Player("Test Heinrich");
+
+        DiceRoll roll = new DiceRoll(5);
+
+        Log.display(roll.getMessages());
+
+        Log.display(player.getMessages());
+
+        Log.display(settlement.getMessages());
+        Log.display(city.getMessages());
+        Log.display(road.getMessages());
+
+        System.out.println("------------------------------------------");
+
+        Log.detailLevel = Message.Detail.MEDIUM;
+
+
+        Log.display(roll.getMessages());
+
+        Log.display(player.getMessages());
+
+        Log.display(settlement.getMessages());
+        Log.display(city.getMessages());
+        Log.display(road.getMessages());
+
+        System.out.println("------------------------------------------");
+
+        Log.detailLevel = Message.Detail.LOW;
+
+
+        Log.display(roll.getMessages());
+
+        Log.display(player.getMessages());
+
+        Log.display(settlement.getMessages());
+        Log.display(city.getMessages());
+        Log.display(road.getMessages());
+    }
+}
