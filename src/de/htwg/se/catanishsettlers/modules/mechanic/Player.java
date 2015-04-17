@@ -10,7 +10,9 @@ import de.htwg.se.catanishsettlers.modules.view.IGenerateMessages;
 import de.htwg.se.catanishsettlers.modules.view.Message;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Stephan on 31.03.2015.
@@ -20,7 +22,13 @@ public class Player implements IGenerateMessages {
     private ArrayList<Card> cards;
     private int knightCount, victoryCardsCount;
     private ResourceCollection resources;
-    private List<Building> buildings;
+
+    private final static int MAX_SETTLEMENTS = 5;
+    private final static int MAX_CITIES = 4;
+    private final static int MAX_ROADS = 15;
+
+    private List<Settlement> settlements;
+    private List<City> cities;
     private List<Road> roads;
     private Game game;
 
@@ -29,12 +37,14 @@ public class Player implements IGenerateMessages {
     public Player(String name, Game game) {     // creates new Player and registers the game for him
         this(name);
         this.game = game;
+        settlements = new LinkedList<Settlement>();
+        cities = new LinkedList<City>();
+        roads = new LinkedList<Road>();
     }
 
     public Player(String name) {
         this.name = name;
         cards = new ArrayList<Card>();
-        buildings = new ArrayList<Building>();
         resources = new ResourceCollection();
     }
 
@@ -73,16 +83,22 @@ public class Player implements IGenerateMessages {
     }
 
     public int getScore() {
-        int score = 0;
-        for (Building building : buildings) {
-            score += building.getScore();
-        }
+        int score = scoreBuildings(cities);
+        score += scoreBuildings(settlements);
         if (hasLargestKnightArmy) score += 2;
         if (hasLongestTradeRoute) score += 2;
         for (Card card : cards) {
             if (card.getType() == Card.Types.VICTORYPOINT) score++;     // victory cards count in hand ...
         }
         score += victoryCardsCount; // ... as well as on the table (there's actually no reason to play them but you can)
+        return score;
+    }
+
+    private int scoreBuildings(List<? extends Building> buildings) {
+        int score = 0;
+        for (Building building : buildings) {
+            score += building.getScore();
+        }
         return score;
     }
 
@@ -100,39 +116,67 @@ public class Player implements IGenerateMessages {
         return resources;
     }
 
-    public boolean makeInvestment(Class<?> desiredClass, MapObject desiredPlace) {     //TODO: extend parameters by vertex / edge for building / road
-        if (!Investment.class.isAssignableFrom(desiredClass)) throw new IllegalArgumentException(); // is investment?
-
-        ResourceCollection cost = null;
-        if (desiredClass == Road.class) {
-            cost = Road.getCost();
-        } else if (desiredClass == Settlement.class) {
-            cost = Settlement.getCost();
-        } else if (desiredClass == City.class) {
-            cost = City.getCost();
-        } else if (desiredClass == Card.class) {
-            cost = Card.getCost();
+    public boolean buyCard() {
+        if (tryToPay(Card.cost)) {
+            Card card = game.getTopCard();
+            cards.add(card);
+            return true;
         }
+        return false;
+    }
 
-        if (resources.compareTo(cost) < 0) return false;    // player doesn't have enough resources
-        resources.subtract(cost);     // pay the price
-
-        Investment investment = null;
-        if (desiredClass == Road.class) {
-            investment = new Road(this, (Edge)desiredPlace);
-        } else if (desiredClass == Settlement.class) {
-            investment = new Settlement(this, (Vertex)desiredPlace);
-        } else if (desiredClass == City.class) {
-            investment = new City(this, (Vertex)desiredPlace);
-        } else if (desiredClass == Card.class) {
-            investment = game.getTopCard();
-            cards.add((Card)investment);
+    private boolean buildSettlement(Vertex vertex) {
+        if (hasSettlementAvailable() && tryToPay(Settlement.cost)) {
+            //TODO: Check if vertex is empty
+            Settlement settlement = new Settlement(this, vertex);
+            settlements.add(settlement);
+            return true;
         }
+        return false;
+    }
 
-        if (investment instanceof Building) {
-            buildings.add((Building) investment);
+    public boolean buildCity(Vertex vertex) {
+        if (hasCityAvailable() && tryToPay(City.cost)) {
+            //TODO: Check if vertex has settlement owned by this player
+            City city = new City(this, vertex);
+            cities.add(city);
+            return true;
         }
-        return true;    // player had enough resources
+        return false;
+    }
+
+    public boolean buildRoad(Edge edge) {
+        if (hasRoadAvailable() && tryToPay(Road.cost)) {
+            //TODO: Check if edge is empty and adjacent to settlement, city or road owned by player
+            Road road = new Road(this, edge);
+            roads.add(road);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean hasSettlementAvailable() {
+        return settlements.size() < MAX_SETTLEMENTS;
+    }
+
+    private boolean hasCityAvailable() {
+        return cities.size() < MAX_CITIES;
+    }
+
+    private boolean hasRoadAvailable() {
+        return roads.size() < MAX_ROADS;
+    }
+
+    private boolean hasEnoughResources(ResourceCollection cost) {
+        return resources.compareTo(cost) > 0;
+    }
+
+    private boolean tryToPay(ResourceCollection cost) {
+        if (hasEnoughResources(cost)) {
+            resources.subtract(cost);
+            return true;
+        }
+        return false;
     }
 
     public Message[] getMessages() {

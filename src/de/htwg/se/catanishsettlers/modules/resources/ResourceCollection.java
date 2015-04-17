@@ -10,9 +10,9 @@ public class ResourceCollection {
     private Grain grain;
     private Ore ore;
 
-    public ResourceCollection(Resource ...resources) {
+    public ResourceCollection(Resource... resources) {
         this(0);    // initializes fields
-        for(Resource resource : resources) add(resource);
+        for (Resource resource : resources) add(resource);
     }
 
     public ResourceCollection(int initialAmount) {
@@ -23,11 +23,25 @@ public class ResourceCollection {
         ore = new Ore(initialAmount);
     }
 
-    public Brick getBrick() { return  brick; }
-    public Lumber getLumber() { return lumber; }
-    public Wool getWool() { return wool; }
-    public Grain getGrain() { return grain; }
-    public Ore getOre() { return ore; }
+    public Brick getBrick() {
+        return brick;
+    }
+
+    public Lumber getLumber() {
+        return lumber;
+    }
+
+    public Wool getWool() {
+        return wool;
+    }
+
+    public Grain getGrain() {
+        return grain;
+    }
+
+    public Ore getOre() {
+        return ore;
+    }
 
     private void add(Resource resource) {                       // logic to add a resource
         if (resource.getClass() == Brick.class) brick.add(resource);
@@ -61,23 +75,23 @@ public class ResourceCollection {
         ore.subtract(resources.ore);
     }
 
-    public ResourceCollection add(Resource ...resources) {                  // add resource(s)
-        for(Resource resource : resources) add(resource);
+    public ResourceCollection add(Resource... resources) {                  // add resource(s)
+        for (Resource resource : resources) add(resource);
         return this;
     }
 
-    public ResourceCollection add(ResourceCollection ...additions) {        // add collection(s)
+    public ResourceCollection add(ResourceCollection... additions) {        // add collection(s)
         for (ResourceCollection resources : additions) add(resources);
         return this;
     }
 
-    public ResourceCollection subtract(Resource ...resources) {             // subtract resource(s)
-        for(Resource resource : resources) subtract(resource);
+    public ResourceCollection subtract(Resource... resources) {             // subtract resource(s)
+        for (Resource resource : resources) subtract(resource);
         return this;
     }
 
-    public ResourceCollection subtract(ResourceCollection ...subtraction) {    // subtract collection(s)
-        for(ResourceCollection resources : subtraction) subtract(resources);
+    public ResourceCollection subtract(ResourceCollection... subtraction) {    // subtract collection(s)
+        for (ResourceCollection resources : subtraction) subtract(resources);
         return this;
     }
 
@@ -86,9 +100,11 @@ public class ResourceCollection {
                 && grain.isPositive() && ore.isPositive());
     }
 
-    // returns 0 if equal in all resources
-    // returns 1 if this > other in all resources
-    // returns -1 if any one resource of this < other (which for example means, a cost cannot be payed)
+    /**
+     * returns 0 if equal in all resources
+     * returns 1 if this > other in all resources
+     * returns -1 if any one resource of this < other (which for example means, a cost cannot be payed)
+     */
     public int compareTo(ResourceCollection other) {
         if (brick.getAmount() == other.brick.getAmount() &&
                 lumber.getAmount() == other.lumber.getAmount() &&
