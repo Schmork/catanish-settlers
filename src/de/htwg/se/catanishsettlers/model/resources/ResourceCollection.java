@@ -4,75 +4,98 @@ package de.htwg.se.catanishsettlers.model.resources;
  * Created by Stephan on 04.04.2015.
  */
 public class ResourceCollection {
-    private Brick brick;
-    private Lumber lumber;
-    private Wool wool;
-    private Grain grain;
-    private Ore ore;
+    private int brick;
+    private int lumber;
+    private int wool;
+    private int grain;
+    private int ore;
 
-    public ResourceCollection(Resource... resources) {
+    public ResourceCollection() {
         this(0);    // initializes fields
-        for (Resource resource : resources) add(resource);
     }
 
     public ResourceCollection(int initialAmount) {
-        brick = new Brick(initialAmount);
-        lumber = new Lumber(initialAmount);
-        wool = new Wool(initialAmount);
-        grain = new Grain(initialAmount);
-        ore = new Ore(initialAmount);
+        brick = initialAmount;
+        lumber = initialAmount;
+        wool = initialAmount;
+        grain = initialAmount;
+        ore = initialAmount;
     }
 
-    public Brick getBrick() {
+    public int getBrick() {
         return brick;
     }
 
-    public Lumber getLumber() {
+    public int getLumber() {
         return lumber;
     }
 
-    public Wool getWool() {
+    public int getWool() {
         return wool;
     }
 
-    public Grain getGrain() {
+    public int getGrain() {
         return grain;
     }
 
-    public Ore getOre() {
+    public int getOre() {
         return ore;
     }
 
-    private void add(Resource resource) {                       // logic to add a resource
-        if (resource.getClass() == Brick.class) brick.add(resource);
-        if (resource.getClass() == Lumber.class) lumber.add(resource);
-        if (resource.getClass() == Wool.class) wool.add(resource);
-        if (resource.getClass() == Grain.class) grain.add(resource);
-        if (resource.getClass() == Ore.class) ore.add(resource);
+    private void add(EResource resource) {                       // logic to add a resource
+        switch (resource) {
+            case BRICK:
+                brick++;
+                break;
+            case GRAIN:
+                grain++;
+                break;
+            case LUMBER:
+                lumber++;
+                break;
+            case ORE:
+                ore++;
+                break;
+            case WOOL:
+                wool++;
+                break;
+        }
     }
 
-    private void subtract(Resource resource) {                  // logic to subtract a resource
-        if (resource.getClass() == Brick.class) brick.subtract(resource);
-        if (resource.getClass() == Lumber.class) lumber.subtract(resource);
-        if (resource.getClass() == Wool.class) wool.subtract(resource);
-        if (resource.getClass() == Grain.class) grain.subtract(resource);
-        if (resource.getClass() == Ore.class) ore.subtract(resource);
+    private void subtract(EResource resource) {                  // logic to subtract a resource
+        switch (resource) {
+            case BRICK:
+                brick--;
+                break;
+            case GRAIN:
+                grain--;
+                break;
+            case LUMBER:
+                lumber--;
+                break;
+            case ORE:
+                ore--;
+                break;
+            case WOOL:
+                wool--;
+                break;
+        }
     }
 
     private void add(ResourceCollection resources) {  // logic to add a collection
-        brick.add(resources.brick);
-        lumber.add(resources.lumber);
-        wool.add(resources.wool);
-        grain.add(resources.grain);
-        ore.add(resources.ore);
+        this.brick += resources.getBrick();
+        this.lumber += resources.getLumber();
+        this.wool += resources.getWool();
+        this.grain += resources.getGrain();
+        this.ore += resources.getOre();
     }
 
     private void subtract(ResourceCollection resources) {   // logic to subtract a collection
-        brick.subtract(resources.brick);
-        lumber.subtract(resources.lumber);
-        wool.subtract(resources.wool);
-        grain.subtract(resources.grain);
-        ore.subtract(resources.ore);
+        this.brick -= resources.getBrick();
+        this.lumber -= resources.getLumber();
+        this.wool -= resources.getWool();
+        this.grain -= resources.getGrain();
+        this.ore -= resources.getOre();
     }
 
     public ResourceCollection add(Resource... resources) {                  // add resource(s)
