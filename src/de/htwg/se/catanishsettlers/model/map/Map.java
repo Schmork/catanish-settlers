@@ -79,6 +79,14 @@ public final class Map implements IMap {
         return fields[x][y];
     }
 
+    public Edge getEdge(int x, int y) {
+        return edges[x][y];
+    }
+
+    public Vertex getVertex(int x, int y) {
+        return vertices[x][y];
+    }
+
     @Override
     public Edge[] getEdges(Field field) {
         if (field == null) {
