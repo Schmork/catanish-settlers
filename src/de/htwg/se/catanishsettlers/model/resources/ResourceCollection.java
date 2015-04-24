@@ -103,25 +103,25 @@ public class ResourceCollection {
         return this;
     }
 
-    public ResourceCollection add(ResourceCollection... additions) {        // add collection(s)
-        for (ResourceCollection resources : additions) add(resources);
-        return this;
-    }
-
-    public ResourceCollection subtract(Resource... resources) {             // subtract resource(s)
-        for (Resource resource : resources) subtract(resource);
-        return this;
-    }
-
-    public ResourceCollection subtract(ResourceCollection... subtraction) {    // subtract collection(s)
-        for (ResourceCollection resources : subtraction) subtract(resources);
-        return this;
-    }
-
-    public boolean isPositive() {
-        return (brick.isPositive() && lumber.isPositive() && wool.isPositive()
-                && grain.isPositive() && ore.isPositive());
-    }
+//    public ResourceCollection add(ResourceCollection... additions) {        // add collection(s)
+//        for (ResourceCollection resources : additions) add(resources);
+//        return this;
+//    }
+//
+//    public ResourceCollection subtract(Resource... resources) {             // subtract resource(s)
+//        for (Resource resource : resources) subtract(resource);
+//        return this;
+//    }
+//
+//    public ResourceCollection subtract(ResourceCollection... subtraction) {    // subtract collection(s)
+//        for (ResourceCollection resources : subtraction) subtract(resources);
+//        return this;
+//    }
+//
+//    public boolean isPositive() {
+//        return (brick.isPositive() && lumber.isPositive() && wool.isPositive()
+//                && grain.isPositive() && ore.isPositive());
+//    }
 
     /**
      * returns 0 if equal in all resources
@@ -129,17 +129,17 @@ public class ResourceCollection {
      * returns -1 if any one resource of this < other (which for example means, a cost cannot be payed)
      */
     public int compareTo(ResourceCollection other) {
-        if (brick.getAmount() == other.brick.getAmount() &&
-                lumber.getAmount() == other.lumber.getAmount() &&
-                wool.getAmount() == other.wool.getAmount() &&
-                grain.getAmount() == other.grain.getAmount() &&
-                ore.getAmount() == other.ore.getAmount()) {
+        if (this.brick == other.getBrick() &&
+                this.lumber == other.getLumber() &&
+                this.wool == other.getWool() &&
+                this.grain == other.getGrain() &&
+                this.ore == other.getOre()) {
             return 0;
-        } else if (brick.getAmount() < other.brick.getAmount() ||
-                lumber.getAmount() < other.lumber.getAmount() ||
-                wool.getAmount() < other.wool.getAmount() ||
-                grain.getAmount() < other.grain.getAmount() ||
-                ore.getAmount() < other.ore.getAmount()) {
+        } else if (this.brick < other.getBrick() ||
+                this.lumber < other.getLumber() ||
+                this.wool < other.getWool() ||
+                this.grain < other.getGrain() ||
+                this.ore < other.getOre()) {
             return -1;
         } else return 1;
     }
@@ -149,23 +149,23 @@ public class ResourceCollection {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Brick: ");
-        sb.append(brick.getAmount());
+        sb.append(brick);
         sb.append(System.lineSeparator());
 
         sb.append("Lumber: ");
-        sb.append(lumber.getAmount());
+        sb.append(lumber);
         sb.append(System.lineSeparator());
 
         sb.append("Wool: ");
-        sb.append(wool.getAmount());
+        sb.append(wool);
         sb.append(System.lineSeparator());
 
         sb.append("Grain: ");
-        sb.append(grain.getAmount());
+        sb.append(grain);
         sb.append(System.lineSeparator());
 
         sb.append("Ore: ");
-        sb.append(ore.getAmount());
+        sb.append(ore);
         sb.append(System.lineSeparator());
 
         return sb.toString();
