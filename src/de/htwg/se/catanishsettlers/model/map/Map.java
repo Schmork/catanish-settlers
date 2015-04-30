@@ -69,13 +69,16 @@ public final class Map implements IMap {
     }
 
     /**
-     * Returns Field of given position.
+     * Returns Field of given position. If x or y are negative, this will return null.
      *
      * @param x x-Coordinate
      * @param y y-Coordinate
      * @return Field at given position
      */
     public Field getField(int x, int y) {
+        if (x < 0 || y < 0) {
+            return null;
+        }
         return fields[x][y];
     }
 
@@ -240,7 +243,89 @@ public final class Map implements IMap {
 
     @Override
     public Field[] getAdjacentFields(Vertex vertex) {
+        if (vertex == null) {
+            return null;
+        }
+
+        Field[] fields = new Field[3];
+
+        int[] x = getAdjacentFieldsCoordinateX(vertex);
+        int[] y = getAdjacentFieldsCoordinateY(vertex);
+
+        fields[0] = getField(x[0], y[0]);
+        fields[1] = getField(x[1], y[1]);
+        fields[2] = getField(x[2], y[2]);
+
         return new Field[0];
+    }
+
+    /**
+     * This returns the x Coordinates of the adjacent fields in following order: top left and then clockwise.
+     * WARNING!!! This method might return negative values!!!
+     *
+     * @param vertex The Vertex you want to know the adjacent fields of.
+     * @return x Coordinates of the adjacent fields
+     */
+    private int[] getAdjacentFieldsCoordinateX(Vertex vertex) {
+        int x = vertex.getX();
+        int y = vertex.getY();
+
+        int[] xFields = new int[3];
+
+        xFields[0] = x - 1;
+        xFields[1] = x;
+
+        if (x % 2 == 0) {
+            if (y % 2 == 0) {
+                xFields[2] = x;
+            } else {
+                xFields[2] = x - 1;
+            }
+
+        } else {
+            if (y % 2 == 0) {
+                xFields[2] = x - 1;
+            } else {
+                xFields[2] = x;
+            }
+        }
+
+        return xFields;
+    }
+
+    /**
+     * This returns the y Coordinates of the adjacent fields in following order: top left and then clockwise.
+     * WARNING!!! This method might return negative values!!!
+     *
+     * @param vertex vertex The Vertex you want to know the adjacent fields of.
+     * @return y Coordinates of the adjacent fields
+     */
+    private int[] getAdjacentFieldsCoordinateY(Vertex vertex) {
+        int x = vertex.getX();
+        int y = vertex.getY();
+
+        int[] yFields = new int[3];
+
+        if (x % 2 == 0) {
+            if (y % 2 == 0) {
+                yFields[0] = (y - 2) / 2;
+                yFields[1] = (y - 2) / 2;
+            } else {
+                yFields[0] = (y - 3) / 2;
+                yFields[1] = (y - 1) / 2;
+            }
+
+        } else {
+            if (y % 2 == 0) {
+                yFields[0] = (y - 2) / 2;
+                yFields[1] = (y - 2) / 2;
+            } else {
+                yFields[0] = (y - 1) / 2;
+                yFields[1] = (y - 3) / 2;
+            }
+        }
+
+        return yFields;
     }
 
     @Override
