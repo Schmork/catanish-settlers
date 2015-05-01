@@ -83,10 +83,16 @@ public final class Map implements IMap {
     }
 
     public Edge getEdge(int x, int y) {
+        if (x < 0 || y < 0) {
+            return null;
+        }
         return edges[x][y];
     }
 
     public Vertex getVertex(int x, int y) {
+        if (x < 0 || y < 0) {
+            return null;
+        }
         return vertices[x][y];
     }
 
@@ -310,18 +316,22 @@ public final class Map implements IMap {
             if (y % 2 == 0) {
                 yFields[0] = (y - 2) / 2;
                 yFields[1] = (y - 2) / 2;
+                yFields[2] = y / 2;
             } else {
                 yFields[0] = (y - 3) / 2;
                 yFields[1] = (y - 1) / 2;
+                yFields[2] = (y - 1) / 2;
             }
 
         } else {
             if (y % 2 == 0) {
                 yFields[0] = (y - 2) / 2;
                 yFields[1] = (y - 2) / 2;
+                yFields[2] = y / 2;
             } else {
                 yFields[0] = (y - 1) / 2;
                 yFields[1] = (y - 3) / 2;
+                yFields[2] = (y - 1) / 2;
             }
         }
 
@@ -330,6 +340,77 @@ public final class Map implements IMap {
 
     @Override
     public Vertex[] getNeighbouringVertices(Vertex vertex) {
+        if (vertex == null) {
+            return null;
+        }
+
+        Vertex[] vertices = new Vertex[3];
+
+        int[] x = getNeighbouringVerticesCoordinateX(vertex);
+        int[] y = getNeighbouringVerticesCoordinateY(vertex);
+
+        vertices[0] = getVertex(x[0], y[0]);
+        vertices[1] = getVertex(x[1], y[1]);
+        vertices[2] = getVertex(x[2], y[2]);
+
         return new Vertex[0];
+    }
+
+    /**
+     * This returns the x Coordinates of the neighbouring vertices in following order: top left and then clockwise.
+     * WARNING!!! This method might return negative values!!!
+     *
+     * @param vertex The Vertex you want to know the neighbouring vertices of.
+     * @return x Coordinates of the neighbouring vertices
+     */
+    private int[] getNeighbouringVerticesCoordinateX(Vertex vertex) {
+        int x = vertex.getX();
+        int y = vertex.getY();
+
+        int[] xVertices = new int[3];
+
+        //There are two different cases possible.
+        //two vertices on left and one on right: x and y is even or both are uneven
+        //one vertex on left and two on right: x or y is uneven and the other is even
+        if ((x % 2 == 0 && y % 2 == 0) || (x % 2 != 0 && y % 2 != 0)) {
+            xVertices[0] = x;
+            xVertices[1] = x + 1;
+            xVertices[2] = x;
+        } else {
+            xVertices[0] = x - 1;
+            xVertices[1] = x;
+            xVertices[2] = x;
+        }
+
+        return xVertices;
+    }
+
+    /**
+     * This returns the y Coordinates of the neighbouring vertices in following order: top left and then clockwise.
+     * WARNING!!! This method might return negative values!!!
+     *
+     * @param vertex The Vertex you want to know the neighbouring vertices of.
+     * @return y Coordinates of the neighbouring vertices
+     */
+    private int[] getNeighbouringVerticesCoordinateY(Vertex vertex) {
+        int x = vertex.getX();
+        int y = vertex.getY();
+
+        int[] yVertices = new int[3];
+
+        //There are two different cases possible.
+        //two vertices on left and one on right: x and y is even or both are uneven
+        //one vertex on left and two on right: x or y is uneven and the other is even
+        if ((x % 2 == 0 && y % 2 == 0) || (x % 2 != 0 && y % 2 != 0)) {
+            yVertices[0] = y - 1;
+            yVertices[1] = y;
+            yVertices[2] = y + 1;
+        } else {
+            yVertices[0] = y;
+            yVertices[1] = y - 1;
+            yVertices[2] = y + 1;
+        }
+
+        return yVertices;
     }
 }
