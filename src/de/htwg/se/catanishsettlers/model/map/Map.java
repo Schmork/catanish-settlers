@@ -1,5 +1,8 @@
 package de.htwg.se.catanishsettlers.model.map;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Map manages the fields, edges and vertices of the board. It knows to which field each vetix or edge belongs.
  * x coordinates start on the left with zero and go up towards the right.
@@ -263,6 +266,16 @@ public final class Map implements IMap {
         fields[2] = getField(x[2], y[2]);
 
         return new Field[0];
+    }
+
+    public List<Field> getFields() {
+        List<Field> returnFields = new LinkedList<Field>();
+        for (Field[] fieldRow : fields) {
+            for (Field field : fieldRow) {
+                if (field != null) returnFields.add(field);
+            }
+        }
+        return returnFields;
     }
 
     /**

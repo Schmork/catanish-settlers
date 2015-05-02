@@ -2,9 +2,10 @@ package de.htwg.se.catanishsettlers.controller;
 
 import de.htwg.se.catanishsettlers.model.constructions.Building;
 import de.htwg.se.catanishsettlers.model.mechanic.Card;
-import de.htwg.se.catanishsettlers.model.mechanic.Field;
+import de.htwg.se.catanishsettlers.model.map.Field;
 import de.htwg.se.catanishsettlers.model.mechanic.Player;
 import de.htwg.se.catanishsettlers.model.resources.Resource;
+import de.htwg.se.catanishsettlers.model.map.Map;
 
 import java.util.*;
 
@@ -94,7 +95,7 @@ public final class Game {
 
     public void distributeResources(int dieRoll) {
         List<Field> productiveFields = new ArrayList<Field>();
-        for (Field field : fields) {
+        for (Field field : map.getFields()) {
             if (field.getTriggerNumber() == dieRoll) productiveFields.add(field);
         }
 
