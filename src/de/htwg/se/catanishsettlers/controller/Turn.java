@@ -3,37 +3,34 @@ package de.htwg.se.catanishsettlers.controller;
 import de.htwg.se.catanishsettlers.model.mechanic.DiceRoll;
 import de.htwg.se.catanishsettlers.model.mechanic.Player;
 import de.htwg.se.catanishsettlers.model.mechanic.Robber;
+import de.htwg.se.catanishsettlers.model.mechanic.Field;
 
 /**
- * Singleton
  * Created by Stephan on 03.04.2015.
  */
 public class Turn {
-    private static Turn singleton;
-
     private Player activePlayer;
+    private Game game;
 
-    private Turn(Player newPlayer) {
-        singleton = this;
+    public Turn(Player player) {
+        if (player == null) return;
 
         // set active player
-        activePlayer = newPlayer;
+        activePlayer = player;
 
         // offer to play cards
+        // TODO: offer to play cards
 
         // roll dice
         DiceRoll roll = new DiceRoll(2);
 
         if (roll.getValue() == 7) {
-            de.htwg.se.catanishsettlers.model.map.Field chosenField = null;   // TODO: Make player choose field
+            de.htwg.se.catanishsettlers.model.map.Field chosenField = null;
+            // TODO: Make player choose field
+            // TODO: resolve Field conflict
             Robber.getInstance().moveToField(chosenField);
         } else {
-            //distributeResources(dieRoll);
+            game.distributeResources(roll.getValue());
         }
-    }
-
-    public static Turn getInstance(Player newPlayer) {
-        if (singleton == null) new Turn(newPlayer);
-        return singleton;
     }
 }

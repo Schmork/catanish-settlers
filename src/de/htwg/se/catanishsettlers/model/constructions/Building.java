@@ -2,6 +2,7 @@ package de.htwg.se.catanishsettlers.model.constructions;
 
 import de.htwg.se.catanishsettlers.model.map.Vertex;
 import de.htwg.se.catanishsettlers.model.mechanic.Player;
+import de.htwg.se.catanishsettlers.model.mechanic.Field;
 import de.htwg.se.catanishsettlers.model.resources.Resource;
 import de.htwg.se.catanishsettlers.model.resources.ResourceCollection;
 
@@ -9,7 +10,8 @@ import de.htwg.se.catanishsettlers.model.resources.ResourceCollection;
  * Created by Stephan on 02.04.2015.
  */
 public abstract class Building extends Construction{
-    protected int score;    // this value determines both the score for victory as well as resource gathering efficiency
+    protected int score;    // how many victory points?
+    protected int yield;    // how many resources gathered?
     private ResourceCollection collectedResources;    // temporal storage for resources from fields
 
     public Building(Player player, Vertex vertex) {
@@ -22,18 +24,19 @@ public abstract class Building extends Construction{
         return score;
     }
 
-    //  this method is meant to be called from a Field that was triggered by dice roll
-    public ResourceCollection harvestField(Resource resource) {
-        for (int n = 0; n < score; n++) collectedResources.add(resource);   // 1 for settlement, 2 for city
-        //new Message(this.toString() + " collected " + resource.toString());
-        return collectedResources;
+    public Resource amplify(Resource resource) {
+        return resource.multiply(yield);
     }
 
-    // this method returns the resources that have been collected by harvestField().
-    // important: FIRST call harvestField(), THEN call collectResources()
-    public ResourceCollection collectResources() {
-        ResourceCollection temp = collectedResources;
-        collectedResources = new ResourceCollection();   // deplete depot
-        return temp;
+    public ResourceCollection yieldResources() {
+        ResourceCollection collectedResources = new ResourceCollection();
+
+        Vertex vertex = (Vertex)getPosition();
+        for(Field surroundingField : vertex.getSurroundingFields()) {
+            Resource resource = surroundingField.getResource();
+            resource.multiply(yield);
+            collectedResources.add(resource);
+        }
+        return collectedResources;
     }
 }

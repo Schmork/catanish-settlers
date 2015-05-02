@@ -40,6 +40,11 @@ public abstract class Resource {
         return subtract(subtraction.getAmount());
     }
 
+    public Resource multiply(int factor) {
+        amount *= factor;
+        return this;
+    }
+
     public boolean isPositive() {
         return amount >= 0;
     }

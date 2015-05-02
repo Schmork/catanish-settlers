@@ -15,5 +15,6 @@ public final class City extends Building{
         cost = new ResourceCollection(new Grain(3), new Ore(2));
         owner = player;
         score = 2;
+        yield = 2;
     }
 }

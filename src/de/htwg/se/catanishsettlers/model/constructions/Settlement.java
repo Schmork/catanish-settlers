@@ -12,5 +12,6 @@ public final class Settlement extends Building{
         super(player, vertex);
         cost = new ResourceCollection(new Brick(1), new Lumber(1), new Wool(1), new Grain(1));
         score = 1;
+        yield = 1;
     }
 }

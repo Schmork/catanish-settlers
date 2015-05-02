@@ -4,6 +4,7 @@ import de.htwg.se.catanishsettlers.model.constructions.Building;
 import de.htwg.se.catanishsettlers.model.mechanic.Card;
 import de.htwg.se.catanishsettlers.model.mechanic.Field;
 import de.htwg.se.catanishsettlers.model.mechanic.Player;
+import de.htwg.se.catanishsettlers.model.resources.Resource;
 
 import java.util.*;
 
@@ -24,15 +25,22 @@ public final class Game {
     private Random rnd;
     private Stack<Card> cardStack;
     private List<Card> discardPile;
-    private List<Field> fields;
+    private Map map;
+    //private List<Field> fields;
+
+    private Turn turn;
 
     public Game() {
         players = new ArrayList<Player>();
-        fields = new ArrayList<Field>();
+        //fields = new ArrayList<Field>();
         rnd = new Random();
         cardStack = new Stack<Card>();
         discardPile = new ArrayList<Card>();
         prepareStack();
+    }
+
+    public Turn getTurn() {
+        return turn;
     }
 
     private void prepareStack() {
@@ -79,24 +87,20 @@ public final class Game {
         checkVictory();
 
         if (++activePlayerIndex >= players.size()) activePlayerIndex = 0;
-        Player activePlayer = players.get(activePlayerIndex);
-        Turn.getInstance(activePlayer);
 
-        return activePlayer;
+        turn = new Turn(getActivePlayer());
+        return getActivePlayer();
     }
 
     public void distributeResources(int dieRoll) {
-        List<Field> productiveFields = new ArrayList<Field>();  // get all fields that have the rolled number
+        List<Field> productiveFields = new ArrayList<Field>();
         for (Field field : fields) {
             if (field.getTriggerNumber() == dieRoll) productiveFields.add(field);
         }
 
         for(Field field : productiveFields) {
-            List<Building> adjacentBuildings = new ArrayList<Building>();   // get all settlements / cities around
-            for (Building building : adjacentBuildings) {
-                building.harvestField(field.getResource());             // get resource type
-                Player owner = building.getPlayer();                // get owner
-                owner.addResources(building.collectResources());     // give owner resource type (amount internally based on building type)
+            for (Building building : field.getSurroundingBuildings()) {
+                building.getPlayer().addResources(building.amplify(field.getResource()));
             }
         }
     }
