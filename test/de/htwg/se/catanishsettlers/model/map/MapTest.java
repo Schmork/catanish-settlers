@@ -13,17 +13,21 @@ public class MapTest {
 
     @Before
     public void setUp() throws Exception {
-
+        map = new Map();
     }
 
     @Test
     public void testGetField() throws Exception {
-
+        Field field = map.getField(2, 3);
+        assertEquals(2, field.getX());
+        assertEquals(3, field.getY());
     }
 
     @Test
     public void testGetEdge() throws Exception {
-
+        Edge edge = map.getEdge(2,6);
+        assertEquals(2, edge.getX());
+        assertEquals(6, edge.getY());
     }
 
     @Test
