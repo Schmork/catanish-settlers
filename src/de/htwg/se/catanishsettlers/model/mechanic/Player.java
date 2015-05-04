@@ -70,9 +70,9 @@ public class Player implements IGenerateMessages {
                 break;
             case VICTORYPOINT: victoryCardsCount++;
                 break;
-            case PROGRESS_DEVELOPMENT:  //TODO: get 2 resources as requested
+            case PROGRESS_DEVELOPMENT:          //TODO: get 2 resources as requested
                 break;
-            case PROGRESS_MONOPOLY:     //TODO: get all resources from other players of one requested type
+            case PROGRESS_MONOPOLY:             //TODO: get all resources from other players of one requested type
                 break;
             case PROGRESS_ROAD_CONSTRUCTION:    //TODO: immediately legally place 2 roads without paying cost
                 break;
