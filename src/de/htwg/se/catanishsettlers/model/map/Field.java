@@ -13,7 +13,7 @@ import java.util.List;
 public class Field extends MapObject {
     //TODO: add enum for different field types
 
-    private Resource resource;
+    private EResource sort;
     private int triggerNumber;
 
     public Field(int x, int y) {
@@ -21,24 +21,15 @@ public class Field extends MapObject {
         //TODO: remove this constructer. Ensure that every field has a proper resource type.
     }
 
-    public Field(Class type, int x, int y) {
+    public Field(EResource sort, int x, int y) {
         this(x,y);
 
-        if (type == Brick.class) resource = new Brick(1);
-        if (type == Lumber.class) resource = new Lumber(1);
-        if (type == Wool.class) resource = new Wool(1);
-        if (type == Grain.class) resource = new Grain(1);
-        if (type == Ore.class) resource = new Ore(1);
-
-        if (resource == null) throw new IllegalArgumentException("Only Brick, Lumber, Wool, Grain or Ore allowed");
+        if (sort == null) throw new IllegalArgumentException("Only Brick, Lumber, Wool, Grain or Ore allowed");
+        this.sort = sort;
     }
 
-    public Class getType() {
-        return resource.getClass();
-    }
-
-    public Resource getResource() {
-        return  resource;
+    public EResource getType() {
+        return sort;
     }
 
     public int getTriggerNumber() {

@@ -4,8 +4,8 @@ import de.htwg.se.catanishsettlers.model.constructions.Building;
 import de.htwg.se.catanishsettlers.model.mechanic.Card;
 import de.htwg.se.catanishsettlers.model.map.Field;
 import de.htwg.se.catanishsettlers.model.mechanic.Player;
-import de.htwg.se.catanishsettlers.model.resources.Resource;
 import de.htwg.se.catanishsettlers.model.map.Map;
+import de.htwg.se.catanishsettlers.model.resources.ResourceCollection;
 
 import java.util.*;
 
@@ -101,7 +101,9 @@ public final class Game {
 
         for(Field field : productiveFields) {
             for (Building building : field.getSurroundingBuildings()) {
-                building.getPlayer().addResources(building.amplify(field.getResource()));
+                ResourceCollection yield = new ResourceCollection();
+                yield.add(field.getType(), building.getYield());
+                building.getPlayer().addResources(yield);
             }
         }
     }

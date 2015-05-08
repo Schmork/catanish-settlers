@@ -10,7 +10,7 @@ import de.htwg.se.catanishsettlers.model.resources.*;
 public final class Settlement extends Building{
     public Settlement(Player player, Vertex vertex) {
         super(player, vertex);
-        cost = new ResourceCollection(new Brick(1), new Lumber(1), new Wool(1), new Grain(1));
+        cost = new ResourceCollection(1, 1, 1, 1, 0);
         score = 1;
         yield = 1;
     }
