@@ -2,8 +2,6 @@ package de.htwg.se.catanishsettlers.model.constructions;
 
 import de.htwg.se.catanishsettlers.model.map.Vertex;
 import de.htwg.se.catanishsettlers.model.mechanic.Player;
-import de.htwg.se.catanishsettlers.model.resources.Grain;
-import de.htwg.se.catanishsettlers.model.resources.Ore;
 import de.htwg.se.catanishsettlers.model.resources.ResourceCollection;
 
 /**
@@ -12,7 +10,7 @@ import de.htwg.se.catanishsettlers.model.resources.ResourceCollection;
 public final class City extends Building{
     public City(Player player, Vertex vertex) {
         super(player, vertex);
-        cost = new ResourceCollection(new Grain(3), new Ore(2));
+        cost = new ResourceCollection(0, 0, 0, 3, 2);
         owner = player;
         score = 2;
         yield = 2;

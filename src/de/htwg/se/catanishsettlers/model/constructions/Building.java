@@ -1,9 +1,9 @@
 package de.htwg.se.catanishsettlers.model.constructions;
 
+import de.htwg.se.catanishsettlers.model.map.Field;
 import de.htwg.se.catanishsettlers.model.map.Vertex;
 import de.htwg.se.catanishsettlers.model.mechanic.Player;
-import de.htwg.se.catanishsettlers.model.map.Field;
-import de.htwg.se.catanishsettlers.model.resources.Resource;
+import de.htwg.se.catanishsettlers.model.resources.EResource;
 import de.htwg.se.catanishsettlers.model.resources.ResourceCollection;
 
 /**
@@ -24,18 +24,15 @@ public abstract class Building extends Construction{
         return score;
     }
 
-    public Resource amplify(Resource resource) {
-        return resource.multiply(yield);
-    }
+    public int getYield() { return yield; }
 
     public ResourceCollection yieldResources() {
         ResourceCollection collectedResources = new ResourceCollection();
 
         Vertex vertex = (Vertex)getPosition();
         for(Field surroundingField : vertex.getSurroundingFields()) {
-            Resource resource = surroundingField.getResource();
-            resource.multiply(yield);
-            collectedResources.add(resource);
+            EResource resource = surroundingField.getType();
+            collectedResources.add(resource, yield);
         }
         return collectedResources;
     }

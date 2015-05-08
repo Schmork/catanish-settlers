@@ -4,7 +4,6 @@ import de.htwg.se.catanishsettlers.controller.Game;
 import de.htwg.se.catanishsettlers.model.constructions.*;
 import de.htwg.se.catanishsettlers.model.map.Edge;
 import de.htwg.se.catanishsettlers.model.map.Vertex;
-import de.htwg.se.catanishsettlers.model.resources.Resource;
 import de.htwg.se.catanishsettlers.model.resources.ResourceCollection;
 import de.htwg.se.catanishsettlers.view.IGenerateMessages;
 import de.htwg.se.catanishsettlers.view.Message;
@@ -106,9 +105,6 @@ public class Player implements IGenerateMessages {
         return knightCount;
     }
 
-    public void addResources(Resource res) {
-        resources.add(res);
-    }
     public void addResources(ResourceCollection res) { resources.add(res); }
 
     public ResourceCollection getResources() {

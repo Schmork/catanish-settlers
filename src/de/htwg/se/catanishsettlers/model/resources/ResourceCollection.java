@@ -22,6 +22,14 @@ public class ResourceCollection {
         ore = initialAmount;
     }
 
+    public ResourceCollection(int brick, int lumber, int wool, int grain, int ore) {
+        this.brick = brick;
+        this.lumber = lumber;
+        this.wool = wool;
+        this.grain = grain;
+        this.ore = ore;
+    }
+
     public int getBrick() {
         return brick;
     }
@@ -98,8 +106,45 @@ public class ResourceCollection {
         this.ore -= resources.getOre();
     }
 
-    public ResourceCollection add(Resource... resources) {                  // add resource(s)
-        for (Resource resource : resources) add(resource);
+    public ResourceCollection add(EResource... resources) {                  // add resource(s)
+        for (EResource resource : resources) add(resource);
+        return this;
+    }
+
+    public ResourceCollection add(EResource resource, int amount) {                  // add resource with amount
+        for (int n = 0; n < amount; n++) add(resource);
+        return this;
+    }
+
+    public ResourceCollection add(ResourceCollection... resourceCollections) {
+        for (ResourceCollection resourceCollection : resourceCollections) {
+            brick += resourceCollection.getBrick();
+            lumber += resourceCollection.getLumber();
+            wool += resourceCollection.getLumber();
+            grain += resourceCollection.getGrain();
+            ore += resourceCollection.getOre();
+        }
+        return this;
+    }
+
+    public ResourceCollection subtract(EResource... resources) {                  // subtract resource(s)
+        for (EResource resource : resources) subtract(resource);
+        return this;
+    }
+
+    public ResourceCollection subtract(EResource resource, int amount) {
+        for (int n = 0; n < amount; n++) subtract(resource);
+        return this;
+    }
+
+    public ResourceCollection subtract(ResourceCollection... resourceCollections) {
+        for (ResourceCollection resourceCollection : resourceCollections) {
+            brick -= resourceCollection.getBrick();
+            lumber -= resourceCollection.getLumber();
+            wool -= resourceCollection.getLumber();
+            grain -= resourceCollection.getGrain();
+            ore -= resourceCollection.getOre();
+        }
         return this;
     }
 
@@ -118,10 +163,9 @@ public class ResourceCollection {
 //        return this;
 //    }
 //
-//    public boolean isPositive() {
-//        return (brick.isPositive() && lumber.isPositive() && wool.isPositive()
-//                && grain.isPositive() && ore.isPositive());
-//    }
+    public boolean isNotNegative() {
+        return (brick >= 0 && lumber>= 0 && wool>= 0 && grain>= 0 && ore>= 0);
+    }
 
     /**
      * returns 0 if equal in all resources
